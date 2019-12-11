@@ -9,7 +9,7 @@ using namespace std;
 typedef enum {_id,
 			_true,_false,_or,_and,_not,
 			_num,
-			_parDer,_parIzq,_menor,_mayor,_igual,_diferente,
+			_parDer,_parIzq,_menor,_mayor,_menorIgual,_mayorIgual,_igual,_diferente,
 			_suma,_resta,_multi,_divi,
 			_dosPuntos,_interrogacion,
 			_comentario,

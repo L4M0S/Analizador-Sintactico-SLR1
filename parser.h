@@ -3,12 +3,21 @@
 
 #include"scanner.h"
 
+typedef class retorno
+{
+	public:
+	int tipo=0;
+	int n=0;
+	token A=_error;
+};
+
 
 bool parser();
-bool match(token);
 bool slr1();
-int T(int,token);
-int R(int,int);
+retorno T(int,token);
+int R(int,token);
 void init();
+void initControlador();
+void initTransicion();
 
 #endif

@@ -360,13 +360,32 @@ token especiales()
 				else if(c=='-') actual=6;
 				else if(c=='*') actual=7;
 				else if(c=='/') actual=8;
-				else if(c=='=') actual=9;
-				else if(c=='!') actual=10;
+				else if(c=='=') actual=15;
+				else if(c=='!') actual=16;
 				else if(c==':') actual=11;
 				else if(c=='?') actual=12;
 				else actual=udef;
 				
 				break;
+				
+			case 15:
+				if(c=='=') actual=9;
+				else actual=udef;
+				break;
+			case 16:
+				if(c=='=') actual=10;
+				else actual=udef;
+				break;
+				
+			case 3:
+				if(c=='=') actual=13;
+				else actual=udef;
+				break;
+			case 4:
+				if(c=='=') actual=14;
+				else actual=udef;
+				break;
+				
 			default: actual=udef;
 			break;
 			
@@ -374,7 +393,7 @@ token especiales()
 		if(actual!=udef)agregar(c);
 	}
 	
-	if(prior>=1 && prior<=12)
+	if(prior>0 &&prior<15)
 	{
 		fallback();
 		success();
@@ -383,6 +402,10 @@ token especiales()
 		else if(prior==2) return _parDer;	
 		else if(prior==3) return _menor;	
 		else if(prior==4) return _mayor;	
+		
+		else if(prior==13) return _menorIgual;	
+		else if(prior==14) return _mayorIgual;
+		
 		else if(prior==5) return _suma;
 		else if(prior==6) return _resta;	
 		else if(prior==7) return _multi;	
@@ -412,55 +435,61 @@ token next()
 	
 	switch(identificador())
 	{
-		case _or:  cout<<cadena<<" "; return _or;
+		case _or:  /*cout<<cadena<<" ";*/ return _or;
 			break;
-		case _and:  cout<<cadena<<" ";return _and;
+		case _and:  /*cout<<cadena<<" ";*/return _and;
 			break;
-		case _not:  cout<<cadena<<" ";return _not;
+		case _not:  /*cout<<cadena<<" ";*/return _not;
 			break;
-		case _true:  cout<<cadena<<" ";return _true;
+		case _true:  /*cout<<cadena<<" ";*/return _true;
 			break;
-		case _false:  cout<<cadena<<" ";return _false;
+		case _false:  /*cout<<cadena<<" ";*/return _false;
 			break;
-		case _id: cout<<cadena<<" "; return _id; 
+		case _id: /*cout<<cadena<<" ";*/return _id; 
 			break;
 	}
 	switch(numero())
 	{
-		case _num: cout<<cadena<<" "; return _num; 
+		case _num: /*cout<<cadena<<" ";*/ return _num; 
 			break;
 	}
 	
 	switch(especiales())
 	{
-		case _parDer: cout<<cadena<<" ";return _parDer; 
+		case _parDer: /*cout<<cadena<<" ";*/return _parDer; 
 	 		break;
-		case _parIzq: cout<<cadena<<" ";return _parIzq; 
+		case _parIzq: /*cout<<cadena<<" ";*/return _parIzq; 
 	 		break;
-		case _menor: cout<<cadena<<" ";return _menor; 
+		case _menor: /*cout<<cadena<<" ";*/return _menor; 
 	 		break;
-		case _mayor: cout<<cadena<<" ";return _mayor; 
+		case _mayor: /*cout<<cadena<<" ";*/return _mayor; 
 	 		break;	
-		case _suma: cout<<cadena<<" ";return _suma; 
+	 		
+	 		case _menorIgual: /*cout<<cadena<<" ";*/return _menorIgual; 
+	 		break;
+		case _mayorIgual: /*cout<<cadena<<" ";*/return _mayorIgual; 
+	 		break;
+	 		
+		case _suma: /*cout<<cadena<<" ";*/return _suma; 
 	        break;
-		case _resta: cout<<cadena<<" ";return _resta; 
+		case _resta: /*cout<<cadena<<" ";*/return _resta; 
 	        break;
-		case _multi: cout<<cadena<<" ";return _multi; 
+		case _multi: /*cout<<cadena<<" ";*/return _multi; 
 	        break;
-		case _divi: cout<<cadena<<" ";return _divi; 
+		case _divi: /*cout<<cadena<<" ";*/return _divi; 
 	        break;
-		case _igual: cout<<cadena<<" ";return _igual; 
+		case _igual: /*cout<<cadena<<" ";*/return _igual; 
 	    	break;
-		case _diferente: cout<<cadena<<" ";return _diferente; 
+		case _diferente: /*cout<<cadena<<" ";*/return _diferente; 
 	    	break;
-        case _dosPuntos: cout<<cadena<<" ";return _dosPuntos; 
+        case _dosPuntos: /*cout<<cadena<<" ";*/return _dosPuntos; 
 	 		break;	
-		case _interrogacion: cout<<cadena<<" ";return _interrogacion; 
+		case _interrogacion: /*cout<<cadena<<" ";*/return _interrogacion; 
 	 		break;	 
 	}
 	
-	if(eof()){cout<<"eof ";return _eof;}
+	if(eof()){/*cout<<"eof ";*/return _eof;}
 	
-	cout<<"error ";
+	/*cout<<"error ";*/
 	return _error;
 }
